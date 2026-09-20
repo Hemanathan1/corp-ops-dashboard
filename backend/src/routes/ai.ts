@@ -43,7 +43,7 @@ router.post("/summarize-tasks", async (req: AuthedRequest, res) => {
       }
     );
 
-    const data = await response.json();
+    const data = (await response.json()) as any;
 
     if (data.error) {
       console.error("Gemini API error:", data.error);
