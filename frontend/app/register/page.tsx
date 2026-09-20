@@ -44,49 +44,59 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <div className="flex items-center justify-center px-8 py-16">
+      <div className="flex items-center justify-center px-8 py-16 bg-paper dark:bg-night">
         <form onSubmit={handleSubmit} className="w-full max-w-sm">
-          <h2 className="font-display text-3xl mb-8">Create an account</h2>
+          <h2 className="font-display text-3xl mb-8 text-ink dark:text-paper">
+            Create an account
+          </h2>
           {error && <p className="text-rust text-sm mb-4 font-mono">{error}</p>}
 
-          <label className="block font-mono text-sm text-ink/60 mb-1">Name</label>
+          <label className="block font-mono text-sm text-ink/60 dark:text-paper/60 mb-1">
+            Name
+          </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full mb-5 px-0 py-2 bg-transparent border-0 border-b border-line focus:border-forest outline-none"
+            className="w-full mb-5 px-0 py-2 bg-transparent border-0 border-b border-line dark:border-line-dark focus:border-forest outline-none text-ink dark:text-paper"
             required
           />
 
-          <label className="block font-mono text-sm text-ink/60 mb-1">Email</label>
+          <label className="block font-mono text-sm text-ink/60 dark:text-paper/60 mb-1">
+            Email
+          </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full mb-5 px-0 py-2 bg-transparent border-0 border-b border-line focus:border-forest outline-none"
+            className="w-full mb-5 px-0 py-2 bg-transparent border-0 border-b border-line dark:border-line-dark focus:border-forest outline-none text-ink dark:text-paper"
             required
           />
 
-          <label className="block font-mono text-sm text-ink/60 mb-1">Password</label>
+          <label className="block font-mono text-sm text-ink/60 dark:text-paper/60 mb-1">
+            Password
+          </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-2 px-0 py-2 bg-transparent border-0 border-b border-line focus:border-forest outline-none"
+            className="w-full mb-2 px-0 py-2 bg-transparent border-0 border-b border-line dark:border-line-dark focus:border-forest outline-none text-ink dark:text-paper"
             minLength={8}
             required
           />
-          <p className="text-xs font-mono text-ink/40 mb-8">At least 8 characters.</p>
+          <p className="text-xs font-mono text-ink/40 dark:text-paper/40 mb-8">
+            At least 8 characters.
+          </p>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-ink text-surface font-body font-medium disabled:opacity-50"
+            className="w-full py-3 bg-ink text-surface dark:bg-paper dark:text-night font-body font-medium disabled:opacity-50"
           >
             {loading ? "Creating account…" : "Create account"}
           </button>
 
-          <p className="text-sm text-center mt-6 text-ink/60 font-mono">
+          <p className="text-sm text-center mt-6 text-ink/60 dark:text-paper/60 font-mono">
             Already have an account?{" "}
             <a href="/login" className="text-forest underline">
               Log in
