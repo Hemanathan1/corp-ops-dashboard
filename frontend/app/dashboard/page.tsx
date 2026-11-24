@@ -76,9 +76,9 @@ export default function DashboardPage() {
     <main className="min-h-screen grid md:grid-cols-[220px_1fr]">
       <aside className="hidden md:flex flex-col justify-between border-r border-line dark:border-line-dark px-6 py-8">
         <div>
-          <span className="font-mono text-sm text-ink/60 dark:text-paper/60">CORPOPS / 001</span>
+          <span className="font-mono text-sm text-ink/75 dark:text-paper/75">CORPOPS / 001</span>
           <h1 className="font-display text-2xl mt-4 mb-8">Ledger</h1>
-          <p className="font-mono text-xs text-ink/50 dark:text-paper/50 uppercase tracking-wide mb-1">
+          <p className="font-mono text-xs text-ink/70 dark:text-paper/70 uppercase tracking-wide mb-1">
             Open items
           </p>
           <p className="font-display text-4xl">{open}</p>
@@ -93,41 +93,48 @@ export default function DashboardPage() {
       </aside>
 
       <section className="px-8 py-10 max-w-2xl">
-        {error && <p className="text-rust text-sm mb-4 font-mono">{error}</p>}
+        {error && (
+          <p role="alert" className="text-rust text-sm mb-4 font-mono">
+            {error}
+          </p>
+        )}
 
         <form onSubmit={addTask} className="flex gap-3 mb-8 border-b border-line dark:border-line-dark pb-6">
           <input
+            aria-label="New task"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Add a task…"
-            className="flex-1 px-0 py-2 bg-transparent border-0 border-b border-line dark:border-line-dark focus:border-forest outline-none placeholder:text-ink/40 dark:placeholder:text-paper/40"
+            className="flex-1 px-0 py-2 bg-transparent border-0 border-b border-line dark:border-line-dark focus:border-forest outline-none placeholder:text-ink/65 dark:placeholder:text-paper/65"
           />
-          <button className="px-5 py-2 bg-ink text-surface dark:bg-paper dark:text-night font-mono text-sm">
+          <button type="submit" className="px-5 py-2 bg-ink text-surface dark:bg-paper dark:text-night font-mono text-sm">
             Add
           </button>
         </form>
 
-        <ul>
-          {tasks.map((task) => (
-            <li
-              key={task.id}
-              className={`flex items-center justify-between border-l-4 ${STATUS_COLOR[task.status]} border-b border-line dark:border-line-dark pl-4 pr-2 py-4`}
-            >
-              <span className="font-body">{task.title}</span>
-              <button
-                onClick={() => cycleStatus(task)}
-                className="font-mono text-xs uppercase tracking-wide text-ink/60 dark:text-paper/60 hover:text-forest"
+        {tasks.length === 0 ? (
+          <p className="text-ink/70 dark:text-paper/70 font-mono text-sm py-6">
+            No entries yet — add one above.
+          </p>
+        ) : (
+          <ul>
+            {tasks.map((task) => (
+              <li
+                key={task.id}
+                className={`flex items-center justify-between border-l-4 ${STATUS_COLOR[task.status]} border-b border-line dark:border-line-dark pl-4 pr-2 py-4`}
               >
-                {STATUS_LABEL[task.status]}
-              </button>
-            </li>
-          ))}
-          {tasks.length === 0 && (
-            <p className="text-ink/50 dark:text-paper/50 font-mono text-sm py-6">
-              No entries yet — add one above.
-            </p>
-          )}
-        </ul>
+                <span className="font-body">{task.title}</span>
+                <button
+                  onClick={() => cycleStatus(task)}
+                  aria-label={`${task.title}: ${STATUS_LABEL[task.status]}. Click to change status.`}
+                  className="font-mono text-xs uppercase tracking-wide text-ink/75 dark:text-paper/75 hover:text-forest"
+                >
+                  {STATUS_LABEL[task.status]}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <button
           onClick={summarize}
@@ -138,7 +145,10 @@ export default function DashboardPage() {
         </button>
 
         {summary && (
-          <div className="mt-8 p-5 bg-surface dark:bg-night-surface border-l-4 border-forest whitespace-pre-wrap font-body text-sm leading-relaxed text-ink dark:text-paper">
+          <div
+            role="status"
+            className="mt-8 p-5 bg-surface dark:bg-night-surface border-l-4 border-forest whitespace-pre-wrap font-body text-sm leading-relaxed text-ink dark:text-paper"
+          >
             {summary}
           </div>
         )}
