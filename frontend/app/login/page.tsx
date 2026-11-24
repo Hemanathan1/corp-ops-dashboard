@@ -96,8 +96,8 @@ export default function LoginPage() {
 
           <p className="text-sm text-center mt-6 text-ink/80 dark:text-paper/80 font-mono">
             No account yet?{" "}
-            <a href="/register" className="text-forest underline">
-              Register
+            <a href="/register" className="text-ink dark:text-paper font-medium underline">
+            Register
             </a>
           </p>
         </form>
